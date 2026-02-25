@@ -1,27 +1,43 @@
 package com.weg.sistema_biblioteca.service;
 
 import com.weg.sistema_biblioteca.dao.UsuarioDAO;
+import com.weg.sistema_biblioteca.dto.usuario.UsuarioRequestDto;
+import com.weg.sistema_biblioteca.dto.usuario.UsuarioResponseDto;
+import com.weg.sistema_biblioteca.mapper.usuario.UsuarioMapper;
 import com.weg.sistema_biblioteca.model.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UsuarioService {
 
-    private UsuarioDAO dao = new UsuarioDAO();
+    @Autowired
+    private UsuarioDAO dao;
 
-    public void salvar(Usuario usuario) {
+    @Autowired
+    private UsuarioMapper mapper;
+
+    public void salvar(UsuarioRequestDto dto) {
+        Usuario usuario = mapper.toEntity(dto);
         dao.salvar(usuario);
     }
 
-    public List<Usuario> listarTodos() {
-        return dao.buscarTodos();
+    public List<UsuarioResponseDto> listarTodos() {
+        return dao.buscarTodos()
+                .stream()
+                .map(mapper::toDto)
+                .toList();
     }
 
-    public Usuario buscarPorId(Long id) {
-        return dao.buscarPorId(id);
+    public UsuarioResponseDto buscarPorId(Long id) {
+        return mapper.toDto(dao.buscarPorId(id));
     }
 
-    public void atualizar(Usuario usuario) {
+    public void atualizar(Long id, UsuarioRequestDto dto) {
+        Usuario usuario = mapper.toEntity(dto);
+        usuario.setId(id);
         dao.atualizar(usuario);
     }
 

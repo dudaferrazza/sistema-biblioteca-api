@@ -1,10 +1,10 @@
 package com.weg.sistema_biblioteca.controller;
 
-import com.weg.sistema_biblioteca.model.Emprestimo;
-import com.weg.sistema_biblioteca.model.Usuario;
-import org.springframework.web.bind.annotation.*;
-import com.weg.sistema_biblioteca.service.EmprestimoService;
+import com.weg.sistema_biblioteca.dto.usuario.UsuarioRequestDto;
+import com.weg.sistema_biblioteca.dto.usuario.UsuarioResponseDto;
 import com.weg.sistema_biblioteca.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,38 +12,31 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-
-    private UsuarioService service = new UsuarioService();
-    private EmprestimoService emprestimoService = new EmprestimoService();
+    @Autowired
+    private UsuarioService service;
 
     @PostMapping
-    public void cadastrar(@RequestBody Usuario usuario) {
-        service.salvar(usuario);
+    public void cadastrar(@RequestBody UsuarioRequestDto dto) {
+        service.salvar(dto);
     }
 
     @GetMapping
-    public List<Usuario> listarTodos() {
+    public List<UsuarioResponseDto> listarTodos() {
         return service.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Usuario buscarPorId(@PathVariable Long id) {
+    public UsuarioResponseDto buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
-        usuario.setId(id);
-        service.atualizar(usuario);
+    public void atualizar(@PathVariable Long id, @RequestBody UsuarioRequestDto dto) {
+        service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         service.deletar(id);
-    }
-
-    @GetMapping("/{id}/emprestimos")
-    public List<Emprestimo> listarEmprestimosDoUsuario(@PathVariable Long id) {
-        return emprestimoService.buscarPorUsuario(id);
     }
 }

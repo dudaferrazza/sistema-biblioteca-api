@@ -1,8 +1,10 @@
 package com.weg.sistema_biblioteca.controller;
 
-import com.weg.sistema_biblioteca.model.Livro;
-import org.springframework.web.bind.annotation.*;
+import com.weg.sistema_biblioteca.dto.livro.LivroRequestDto;
+import com.weg.sistema_biblioteca.dto.livro.LivroResponseDto;
 import com.weg.sistema_biblioteca.service.LivroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -10,27 +12,27 @@ import java.util.List;
 @RequestMapping("/livros")
 public class LivroController {
 
-    private LivroService service = new LivroService();
+    @Autowired
+    private LivroService service;
 
     @PostMapping
-    public void cadastrar(@RequestBody Livro livro) {
-        service.salvar(livro);
+    public void cadastrar(@RequestBody LivroRequestDto dto) {
+        service.salvar(dto);
     }
 
     @GetMapping
-    public List<Livro> listarTodos() {
+    public List<LivroResponseDto> listarTodos() {
         return service.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Livro buscarPorId(@PathVariable Long id) {
+    public LivroResponseDto buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@PathVariable Long id, @RequestBody Livro livro) {
-        livro.setId(id);
-        service.atualizar(livro);
+    public void atualizar(@PathVariable Long id, @RequestBody LivroRequestDto dto) {
+        service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")

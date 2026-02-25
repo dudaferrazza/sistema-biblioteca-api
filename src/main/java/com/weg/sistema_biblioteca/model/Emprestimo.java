@@ -21,7 +21,6 @@ public class Emprestimo {
     }
 
     public Emprestimo(Long livroId, Long usuarioId, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
-        this.id = id;
         this.livroId = livroId;
         this.usuarioId = usuarioId;
         this.dataEmprestimo = dataEmprestimo;

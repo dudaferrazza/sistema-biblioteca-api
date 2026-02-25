@@ -2,12 +2,14 @@ package com.weg.sistema_biblioteca.dao;
 
 import com.weg.sistema_biblioteca.model.Emprestimo;
 import com.weg.sistema_biblioteca.utils.Conexao;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class EmprestimoDAO {
 
     public void salvar(Emprestimo e) {

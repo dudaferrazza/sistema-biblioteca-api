@@ -2,11 +2,13 @@ package com.weg.sistema_biblioteca.dao;
 
 import com.weg.sistema_biblioteca.model.Usuario;
 import com.weg.sistema_biblioteca.utils.Conexao;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UsuarioDAO {
 
     public void salvar(Usuario usuario) {
