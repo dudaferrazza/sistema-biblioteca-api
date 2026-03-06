@@ -3,6 +3,7 @@ package com.weg.sistema_biblioteca.controller;
 import com.weg.sistema_biblioteca.dto.usuario.UsuarioRequestDto;
 import com.weg.sistema_biblioteca.dto.usuario.UsuarioResponseDto;
 import com.weg.sistema_biblioteca.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @PostMapping
-    public void cadastrar(@RequestBody UsuarioRequestDto dto) {
+    public void cadastrar(@RequestBody @Valid UsuarioRequestDto dto) {
         service.salvar(dto);
     }
 
@@ -31,7 +32,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@PathVariable Long id, @RequestBody UsuarioRequestDto dto) {
+    public void atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioRequestDto dto) {
         service.atualizar(id, dto);
     }
 

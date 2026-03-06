@@ -3,6 +3,7 @@ package com.weg.sistema_biblioteca.controller;
 import com.weg.sistema_biblioteca.dto.emprestimo.EmprestimoRequestDto;
 import com.weg.sistema_biblioteca.dto.emprestimo.EmprestimoResponseDto;
 import com.weg.sistema_biblioteca.service.EmprestimoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class EmprestimoController {
     private EmprestimoService service;
 
     @PostMapping
-    public void cadastrar(@RequestBody EmprestimoRequestDto dto) {
+    public void cadastrar(@RequestBody @Valid EmprestimoRequestDto dto) {
         service.cadastrar(dto);
     }
 

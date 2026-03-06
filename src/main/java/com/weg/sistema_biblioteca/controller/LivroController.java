@@ -3,6 +3,7 @@ package com.weg.sistema_biblioteca.controller;
 import com.weg.sistema_biblioteca.dto.livro.LivroRequestDto;
 import com.weg.sistema_biblioteca.dto.livro.LivroResponseDto;
 import com.weg.sistema_biblioteca.service.LivroService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class LivroController {
     private LivroService service;
 
     @PostMapping
-    public void cadastrar(@RequestBody LivroRequestDto dto) {
+    public void cadastrar(@RequestBody @Valid LivroRequestDto dto) {
         service.salvar(dto);
     }
 
@@ -31,7 +32,7 @@ public class LivroController {
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@PathVariable Long id, @RequestBody LivroRequestDto dto) {
+    public void atualizar(@PathVariable Long id, @RequestBody @Valid LivroRequestDto dto) {
         service.atualizar(id, dto);
     }
 
